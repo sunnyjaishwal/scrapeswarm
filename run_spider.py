@@ -10,7 +10,7 @@ def run_spider(spider_name, env='dev'):
     Run a specific spider with environment-specific settings
     """
     # Dynamically load settings based on environment
-    settings_module = f'scrapy_project.settings.{env}'
+    settings_module = f'ScrapeSwarm.settings.{env}'
     os.environ['SCRAPY_SETTINGS_MODULE'] = settings_module
     
     # Load settings

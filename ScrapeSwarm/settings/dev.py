@@ -9,6 +9,14 @@ LOG_LEVEL = 'DEBUG'
 PROXY_POOL_ENABLED = False
 ROTATING_PROXY_ENABLED = False
 
-USER_AGENT = "ScrapeSwarm - Development Server"
+
+print("*" * 50)
+print("*" * 50)
+print("*" * 50)
+print("*" * 50)
+print("ScrapeSwarm - Development Server")
+print("*" * 50)
+print("*" * 50)
+print("*" * 50)
 # Database or external service configurations
 DATABASE_URL = 'postgresql://localhost/dev_database'

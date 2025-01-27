@@ -34,10 +34,11 @@ ITEM_PIPELINES = {
 
 # Downloader middlewares
 DOWNLOADER_MIDDLEWARES = {
-    'ScrapeSwarm.middlewares.ScrapeswarmDownloaderMiddleware': 543,
+    'ScrapeSwarm.middlewares.middlewares.ScrapeSwarmDownloaderMiddleware': 543,
 }
 
 # Spider middlewares
 SPIDER_MIDDLEWARES = {
-    'ScrapeSwarm.middlewares.ScrapeswarmSpiderMiddleware': 543,
+    'ScrapeSwarm.middlewares.logging_middleware.LoggingMiddleware': 543,
+    'ScrapeSwarm.middlewares.middlewares.ScrapeSwarmSpiderMiddleware': 543,
 }

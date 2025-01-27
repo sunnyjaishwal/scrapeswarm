@@ -1,15 +1,9 @@
-# Define here the models for your spider middleware
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
+import logging
 from scrapy import signals
-
-# useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
 
 
-class ScrapeswarmSpiderMiddleware:
+class ScrapeSwarmSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -24,6 +18,8 @@ class ScrapeswarmSpiderMiddleware:
     def process_spider_input(self, response, spider):
         # Called for each response that goes through the spider
         # middleware and into the spider.
+        # for i in range(0, 10):
+        #     print('process_spider_input', i)
 
         # Should return None or raise an exception.
         return None
@@ -56,7 +52,7 @@ class ScrapeswarmSpiderMiddleware:
         spider.logger.info("Spider opened: %s" % spider.name)
 
 
-class ScrapeswarmDownloaderMiddleware:
+class ScrapeSwarmDownloaderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
@@ -71,6 +67,32 @@ class ScrapeswarmDownloaderMiddleware:
     def process_request(self, request, spider):
         # Called for each request that goes through the downloader
         # middleware.
+        print("Body: ", request.body)
+        print("Callback: ", request.callback)
+        print("cb_kwargs: ", request.cb_kwargs)
+        print("cookies: ", request.cookies)
+        print("copy: ", request.copy)
+        print("dont_filter: ", request.dont_filter)
+        print("Encoding: ", request.encoding)
+        print("Errorback: ", request.errback)
+        print("Flags: ", request.flags)
+        print("Headers: ", request.headers['User-Agent'])
+        print("from_curl: ", request.from_curl)
+        print("Meta : ", request.meta)
+        print("Method: ", request.method)
+        print("Priority: ", request.priority)
+        print("Replace: ", request.replace)
+        print("to_dict: ", request.__dict__)
+        print("URL; ", request.url)
+
+        # setup broswer agent, headers, cookies, meta, 
+        # user_agent, browser-plugin, installed-fonts, 
+        # screen-size, time-zone, language, IP address,
+        # canvas fingerprint, webGL fingerprint,audio fingerprint,
+        # media devices, battery status, http headers, 
+        # mouse movements, keystrokes, javascripts variables 
+        # 
+        # 
 
         # Must either:
         # - return None: continue processing this request
