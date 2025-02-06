@@ -34,6 +34,7 @@ ITEM_PIPELINES = {
 
 # Downloader middlewares
 DOWNLOADER_MIDDLEWARES = {
+    # 'ScrapeSwarm.middlewares.browser_middleware.BrowserMiddleware': 543,
     'ScrapeSwarm.middlewares.middlewares.ScrapeSwarmDownloaderMiddleware': 543,
 }
 

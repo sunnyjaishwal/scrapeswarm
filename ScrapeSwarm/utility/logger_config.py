@@ -16,20 +16,20 @@ LOGGING_CONFIG = {
             'class': 'logging.FileHandler',
             'filename': 'ScrapeSwarm.log',
         },
-        # 'console': {
-        #     'level': 'DEBUG',
-        #     'formatter': 'standard',
-        #     'class': 'logging.StreamHandler',
-        # },
+        'console': {
+            'level': 'DEBUG',
+            'formatter': 'standard',
+            'class': 'logging.StreamHandler',
+        },
     },
     'loggers': {
         '': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
             'level': 'DEBUG',
             'propagate': True,
         },
         'scrapy': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
             'level': 'DEBUG',
             'propagate': True,
         },

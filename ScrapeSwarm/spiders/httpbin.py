@@ -1,8 +1,10 @@
 import scrapy
-
+from ScrapeSwarm.utility.browser.BrowserManager import BrowserManager
 class HttpBinSpider(scrapy.Spider):
     name = "httpbin"
     start_urls = ['https://httpbin.org/']
+    browser = BrowserManager("Puppeteer").get_browser()
+
 
     def parse(self, response):
         self.log("Accessed httpbin.org successfully!")
