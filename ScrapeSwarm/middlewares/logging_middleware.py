@@ -20,7 +20,7 @@ class LoggingMiddleware:
         pass
 
     def process_start_requests(self, start_requests, spider):
-        self.logger.debug(f"Processing start requests for Sunny {spider.name}")
+        self.logger.debug(f"Processing start requests for {spider.name}")
         for r in start_requests:
             yield r
 
