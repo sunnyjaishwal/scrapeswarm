@@ -11,10 +11,10 @@ NEWSPIDER_MODULE = 'ScrapeSwarm.spiders'
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests
-CONCURRENT_REQUESTS = 16
+CONCURRENT_REQUESTS = 1
 
 # Download delays
-DOWNLOAD_DELAY = 1.5
+DOWNLOAD_DELAY = 3
 
 # Retry configuration
 RETRY_ENABLED = True
@@ -34,7 +34,6 @@ ITEM_PIPELINES = {
 
 # Downloader middlewares
 DOWNLOADER_MIDDLEWARES = {
-    # 'ScrapeSwarm.middlewares.browser_middleware.BrowserMiddleware': 543,
     'ScrapeSwarm.middlewares.middlewares.ScrapeSwarmDownloaderMiddleware': 543,
 }
 

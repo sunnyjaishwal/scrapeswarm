@@ -34,3 +34,6 @@ __pycache__/
 
 # scrapy dev settings file
 scrapy/settings/dev.py
+
+# Enviornment files
+api/apienv

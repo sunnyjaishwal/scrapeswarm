@@ -26,6 +26,27 @@ class PlaywrightBrowser(BrowserInterface):
             print(f"Opened URL: {url} in Playwright")
             print(response.all_headers())
         return response
+    
+    def open_api_url_post(self, url: str, custom_header: dict):
+        with sync_playwright() as p:
+            self.browser = p.chromium.launch(headless=True)
+            self.context = self.browser.new_context()
+            fingerprint_data = random.choice(FingerPrint.FINGER_PRINT_LIST)
+
+            if custom_header:
+                self.context.set_extra_http_headers({
+                    'User-Agent':custom_header['userAgent'],    
+                })
+            else:
+                self.context.set_extra_http_headers({
+                    'User-Agent':fingerprint_data['userAgent'],    
+                })
+
+            self.page = self.context.new_page()
+            response = self.page.request.post(url)
+            print(f"Opened URL: {url} in Playwright")
+            print(response.all_headers())
+        return response
 
     def close_browser(self):
         if self.browser:
