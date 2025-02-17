@@ -8,8 +8,8 @@ EXPOSE 5672
 EXPOSE 15672
 
 # Define environment variables
-ENV RABBITMQ_DEFAULT_USER=user
-ENV RABBITMQ_DEFAULT_PASS=password
+ENV RABBITMQ_DEFAULT_USER=sunny
+ENV RABBITMQ_DEFAULT_PASS=sunny
 
 # Start RabbitMQ server
 CMD ["rabbitmq-server"]

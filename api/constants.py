@@ -1,0 +1,1 @@
+SITELIST = ['Delta','Etihad']

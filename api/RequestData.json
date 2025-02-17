@@ -1,0 +1,19 @@
+{
+  "requestId": "a0d33756-9584-4dd6-9c7b-9e9db9d07622",
+  "reportId": "a0d33756-9584-4dd6-9c7b-9e9db9d07622",
+  "customerId": 1,
+  "siteId": 1, 
+  "siteName": "AirFrance", 
+  "retryCount": 5,
+  "parameters": {
+    "currency": "USD",
+    "sourceIata": "NYC",    
+    "destinationIata": "CDG",    
+    "departureDate": "2025-01-19",
+    "returnDate": "2025-01-20",
+    "pos": "US",
+    "numOfAdults": 2,
+    "numOfStops": 0,
+    "isRoundtrip":false
+  }
+}

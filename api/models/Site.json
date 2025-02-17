@@ -1,0 +1,19 @@
+[
+    {
+        "siteId": 1,
+        "siteName": "Etihad",
+        "prefetchSiteId": 3,
+        "pos": "US",
+        "siteUrl": "https://wwws.etihad.us/",
+        "siteType": "Brand",
+        "industryType": "Airline"
+   },
+    {
+        "siteId": 2,
+        "siteName": "Delta",
+        "pos": "US",
+        "siteUrl": "https://www.delta.com/",
+        "siteType": "Brand",
+        "industryType": "Airline"
+   }
+  ]
