@@ -1,0 +1,1 @@
+SPiderList = ['Etihad','Delta']

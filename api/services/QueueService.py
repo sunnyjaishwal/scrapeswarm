@@ -38,7 +38,7 @@ class RabbitMQHandler:
             if not self.connection or self.connection.is_closed:
                 self.connect()
 
-            self.channel.exchange_declare(exchange=exchange_name, exchange_type='direct', durable=True)
+            self.channel.exchange_declare(exchange=exchange_name, exchange_type='fanout', durable=True)
             self.channel.basic_publish(exchange=exchange_name, routing_key=routing_key, body=payload)
             logging.info(f"Message sent to exchange: {exchange_name} with routing key: {routing_key}")
         except pika.exceptions.AMQPConnectionError as e:

@@ -30,8 +30,6 @@ with open("models/Site.json", "r") as file:
 async def send_request(data: InputData):
     output = []
     for site in SiteData:
-        print(site)
-        print("################################################")
         parameters = data.parameters
         key = f"{parameters.sourceIata}:{parameters.destinationIata}:{parameters.departureDate}:{site['siteId']}"
         response = cache.get_response_from_cache(key)
@@ -45,13 +43,12 @@ async def send_request(data: InputData):
             print("cache miss")
             # Prepare for BotRequest
             BotRequest.request_processor(data, site)
-            
             # Poll to check if the response is available in the cache
             response = cache.get_response_from_cache(key)
             output.append ({
                 "details":response,
                 "message": "Response added to cache",
-                "siteId": site,
+                "site": site,
             })
 
     return output
