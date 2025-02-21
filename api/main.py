@@ -1,11 +1,6 @@
 import json
-import os
-from typing import Union
-# from constants import SITELIST
 from dotenv import load_dotenv # type: ignore
 from fastapi import FastAPI # type: ignore
-from fastapi.middleware import Middleware # type: ignore
-from api.middleware.IPAuthMiddleware import IPAuthMiddleware
 from api.models.InputData import InputData
 from api.services.CacheService import CacheProcessor
 from api.connections.RabbitMQConnector import RabbitMQConnector
