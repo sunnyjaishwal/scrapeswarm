@@ -2,6 +2,7 @@
     {
         "siteId": 1,
         "siteName": "Etihad",
+        "bot_request_type":{"x-match": "all", "request-type": "API"},
         "prefetchSiteId": 3,
         "pos": "US",
         "siteUrl": "https://wwws.etihad.us/",
@@ -11,6 +12,7 @@
     {
         "siteId": 2,
         "siteName": "Delta",
+        "bot_request_type":{"x-match": "all", "request-type": "API"},
         "pos": "US",
         "siteUrl": "https://www.delta.com/",
         "siteType": "Brand",

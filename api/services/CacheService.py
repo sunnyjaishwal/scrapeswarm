@@ -1,12 +1,10 @@
 import redis
 import json
-
-from constants import SITELIST
-from services.MessageProcessor import MessageProcessor
+from api.connections.RedisConnector import RedisConnector
 
 class CacheProcessor:
-    def __init__(self, host='localhost', port=8084, db=0):
-        self.client = redis.Redis(host=host, port=port, db=db, decode_responses=True)
+    def __init__(self):
+        self.client = RedisConnector().get_connection()
 
     def get_response_from_cache(self, key):
         cached_data = self.client.get(key)

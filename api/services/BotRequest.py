@@ -1,29 +1,28 @@
 import json
-from services.QueueService import RabbitMQHandler
-from services.Encoder import GenericJSONEncoder
+from api.services.RabbitMQHandler import RabbitMQHandler
+from api.services.Encoder import GenericJSONEncoder
+from api.services.RabbitMQHandler import RabbitMQHandler
 
-class BotRequest:
 
-    def __init__(self):
-        self.host = 'localhost'
-        self.port = 5672
-        self.username = 'sunny'
-        self.password = 'sunny'
+class BotRequest(RabbitMQHandler):
+
+    def __init__(self, handler):
+        self.handler = handler
+
     
-    def message_processor(self, data, site):
+    def _message_processor(self, message, site):
         # Prepare payload for message broker
         payload = {}
-        routing_key = f"{site['siteName']}"
-        payload['body'] = data
+        header = site['bot_request_type']
+        payload['body'] = message
         payload["siteId"] = site['siteId']
-        payload["siteName"] = routing_key
+        payload["siteName"] = site['siteName']
         payload["siteUrl"] = site['siteUrl']
         payload = json.dumps(payload, cls=GenericJSONEncoder)
-        return str(payload), routing_key
+        return payload, header
 
-    def request_processor(self, data, site):
+    def request_processor(self, message, site):
         # Your request processor logic here
-        payload, routing_key = self.message_processor(data, site)
+        payload, header = self._message_processor(message, site)
         # send request to message broker
-        self.rabbitmq_handler = RabbitMQHandler(self.host, self.port, self.username, self.password)
-        self.rabbitmq_handler.send_message_to_exchange(payload, "AirlineIn", routing_key)
+        self.handler.publish(payload, header)

@@ -1,8 +1,14 @@
-# Use the official Redis image from the Docker Hub
-FROM redis:latest
+# Use an official Redis image as the base image
+FROM redis:6.2-alpine
 
-# Expose the Redis port
+# Set the working directory
+WORKDIR /usr/local/etc/redis
+
+# Copy custom Redis configuration file to the container
+COPY redis.conf .
+
+# Expose the default Redis port
 EXPOSE 6379
 
-# Set the default command to run Redis server
-CMD ["redis-server"]
+# Set the entrypoint command to use the custom configuration
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]

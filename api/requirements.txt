@@ -3,3 +3,4 @@ pydantic
 radis
 rabbitmq
 pika
+python-dotenv
