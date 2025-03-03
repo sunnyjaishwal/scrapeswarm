@@ -1,4 +1,4 @@
-import pika # type: ignore
+import pika
 
 # Define connection parameters
 connection_params = pika.ConnectionParameters('localhost')
@@ -6,17 +6,17 @@ connection = pika.BlockingConnection(connection_params)
 channel = connection.channel()
 
 # Declare the exchange
-exchange_name = 'Airline'
-channel.exchange_declare(exchange=exchange_name, exchange_type='direct')
+EXCHANGE_NAME = 'AirlineDev'
+channel.exchange_declare(exchange=EXCHANGE_NAME, exchange_type='headers')
 
 # Declare the queues
-queues = ['etihad', 'delta', 'american', 'united']
+queues = ['APIQueue', 'WebQueue', 'BotResponse']
 
 for queue in queues:
     channel.queue_declare(queue=queue)
-    channel.queue_bind(exchange=exchange_name, queue=queue)
+    channel.queue_bind(exchange=EXCHANGE_NAME, queue=queue)
 
-print(f"Exchange '{exchange_name}' and queues {queues} have been created and bound.")
+print(f"Exchange '{EXCHANGE_NAME}' and queues {queues} have been created and bound.")
 
 # Close the connection
 connection.close()

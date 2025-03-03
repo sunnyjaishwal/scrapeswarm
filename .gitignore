@@ -38,3 +38,4 @@ scrapy/settings/dev.py
 # Enviornment files
 api/apienv
 scraper/env
+throttler/throttle-env

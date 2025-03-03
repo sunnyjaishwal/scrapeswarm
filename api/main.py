@@ -35,11 +35,14 @@ BotRequest = BotRequest(handler)
 
 # Read SiteData from a json file(later will be rpelaced with database)
 SiteData = {}
-with open("models/Site.json", "r") as file:
+with open("models/Site.json", "r", encoding="utf-8") as file:
     SiteData = json.loads(file.read())
 
 @app.post("/send_request")
 async def send_request(message: InputData):
+    '''
+    SendAPI receives the request payload from the client and sends response back to the client.
+    '''
     # Logger.info(f"Received request from {data.clientIp} to {data.url}")
     output = []
     for site in SiteData:
