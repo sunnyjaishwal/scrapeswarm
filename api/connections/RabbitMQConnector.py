@@ -1,13 +1,11 @@
-import pika  # type: ignore
+import pika
 import os
-import json
-from dotenv import load_dotenv  # type: ignore
-from api.logger_service import get_logger
+from dotenv import load_dotenv
 
 class RabbitMQConnector:
+    ''' Message broker connector '''
     def __init__(self):
         load_dotenv()
-        self.logger = get_logger(__name__)
         self.credentials = pika.PlainCredentials(str(os.getenv('RABBITMQ_PASSWORD')), str(os.getenv('RABBITMQ_PASSWORD')))
         self.parameters = pika.ConnectionParameters(
             host = str(os.getenv('RABBITMQ_HOST')),
@@ -20,21 +18,19 @@ class RabbitMQConnector:
     def _connect(self):
         try:
             self.connection = pika.BlockingConnection(self.parameters)
-            self.logger.info('Connected to RabbitMQ')
         except pika.exceptions.AMQPConnectionError as e:
-            self.logger.error(f"Failed to connect to RabbitMQ: {e}")
-        except Exception as e:
-            self.logger.error(f"Unexpected error: {e}")
+            print("connection Error", e)
             
 
     def get_channel(self):
+        ''' get a channel '''
         if self.connection is None or not self.connection.is_open:
             self._connect()
         return self.connection.channel()
 
 
     def close_connection(self):
+        ''' close the connection '''
         if self.connection and not self.connection.is_closed:
             self.connection.close()
-            self.logger.info('Connection closed')
     
