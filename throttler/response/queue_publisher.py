@@ -3,7 +3,7 @@ import json
 from pika import BasicProperties
 from connections.RabbitMQConnector import RabbitMQConnector
 
-class QueueHandler:
+class ResponsePublisher:
     '''This class will handle the the processing and configuration logc of the queue'''
     def __init__(self, ):
         self.exchange:str = 'AirlineDev'
@@ -24,7 +24,6 @@ class QueueHandler:
         self._declare_queue()
 
     def _declare_queue(self):
-        
         self.channel.queue_declare(
             queue=self.queue,
             durable=True,

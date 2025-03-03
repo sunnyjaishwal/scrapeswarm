@@ -1,13 +1,14 @@
 import json
 from dotenv import load_dotenv # type: ignore
 from fastapi import FastAPI # type: ignore
-from api.models.InputData import InputData
-from api.services.CacheService import CacheProcessor
-from api.connections.RabbitMQConnector import RabbitMQConnector
-from api.services.RabbitMQHandler import RabbitMQHandler
-from api.services.BotRequest import BotRequest
+from models.InputData import InputData
+from services.cache_service import CacheProcessor
+from services.RabbitMQHandler import RabbitMQHandler
+from services.bot_request_publisher import BotRequestPublisher
+from connections.RabbitMQConnector import RabbitMQConnector
 
-from api.logger_service import get_logger
+
+from logger_service import get_logger
 
 load_dotenv()
 Logger = get_logger(__name__)
@@ -31,7 +32,7 @@ for queue, header in queues.items():
     handler.bind_queue(queue_name=queue, headers=header)
 
 cache = CacheProcessor()
-BotRequest = BotRequest(handler)
+BotRequest = BotRequestPublisher(handler)
 
 # Read SiteData from a json file(later will be rpelaced with database)
 SiteData = {}

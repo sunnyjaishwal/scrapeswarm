@@ -3,6 +3,7 @@
 import logging
 import json
 from connections.RabbitMQConnector import RabbitMQConnector
+from services.cache_service import CacheProcessor
 
 
 
@@ -15,6 +16,7 @@ class ResponseConsumer:
     def __init__(self):
         self.connection = RabbitMQConnector()
         self.channel = self.connection.get_channel()
+        self.cache_processor = CacheProcessor()
 
     def get_queues(self):
         ''' This method will get queue name from the site table'''
@@ -28,16 +30,18 @@ class ResponseConsumer:
             message = json.loads(body)
             # If message is a JSON-encoded string, decode it again
             if isinstance(message, str):
-                message = json.loads(message)
-                print(message)
-                # Convert this in JSON
+                data = json.loads(message)
+                parameters = data['request']['body']['parameters']
+                print(parameters)
+                key = f"{parameters['sourceIata']}:{parameters['destinationIata']}:{parameters['departureDate']}:{data['request']['body']['siteId']}"
+                self.cache_processor.set_response_to_cache(key=key, value=data)
+                print("Data set to cache")
                 # Add this in Cache with unique Key
         except json.JSONDecodeError as e:
             logger.error("Failed to decode message: %s, error: %s", body, e)
         except Exception as e:
             logger.error("Exception occurred: %s", e, exc_info=True)
-        finally:
-            ch.basic_ack(delivery_tag=method.delivery_tag)
+
 
     def consume_and_process(self):
         '''consume and process the message'''
@@ -49,6 +53,7 @@ class ResponseConsumer:
         )
         logger.info("[X] Started consuming")
         self.channel.start_consuming()
+
 
 if __name__ == '__main__':
     try:

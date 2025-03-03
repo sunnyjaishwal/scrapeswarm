@@ -1,5 +1,6 @@
+"""Cache Service Module"""
 import json
-from api.connections.RedisConnector import RedisConnector
+from connections.RedisConnector import RedisConnector
 
 class CacheProcessor:
     '''

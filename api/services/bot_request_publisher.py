@@ -1,10 +1,10 @@
 import json
-from api.services.RabbitMQHandler import RabbitMQHandler
-from api.services.Encoder import GenericJSONEncoder
-from api.services.RabbitMQHandler import RabbitMQHandler
+from services.RabbitMQHandler import RabbitMQHandler
+from services.Encoder import GenericJSONEncoder
+from services.RabbitMQHandler import RabbitMQHandler
 
 
-class BotRequest(RabbitMQHandler):
+class BotRequestPublisher(RabbitMQHandler):
 
     def __init__(self, handler):
         self.handler = handler

@@ -20,7 +20,7 @@ class RabbitMQConnector:
             self.connection = pika.BlockingConnection(self.parameters)
         except pika.exceptions.AMQPConnectionError as e:
             print("connection Error", e)
-            
+
 
     def get_channel(self):
         ''' get a channel '''
