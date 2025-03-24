@@ -31,7 +31,7 @@ class BotRequestConsumer:
                 message = json.loads(message)
 
             site_name = message.get("siteName")
-
+            print("One request received for ", site_name)
             if site_name == 'Etihad':
                 EtihadScraper(message).send_request()
             elif site_name == 'Delta':

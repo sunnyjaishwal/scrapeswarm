@@ -3,6 +3,7 @@ import json
 import logging
 import requests
 
+from response.bot_response import BotResponse
 #from utility.BotResponse import BotResponse
 
 class EtihadScraper:
@@ -12,6 +13,7 @@ class EtihadScraper:
 
     def __init__(self, message):
         self.message = message
+        self.bot_response = BotResponse()
         self.url = "https://api-des.etihad.com/airlines/EY/v2/search/air-bounds"
         self.payload = {
             "commercialFareFamilies": ["ECONOMY", "BUSINESS"],
@@ -54,15 +56,15 @@ class EtihadScraper:
         Sends a POST request to the Etihad API and processes the response.
         """
         try:
-            response = requests.post(self.url, data=self.payload, headers=self.headers)
-            logging.info(f"Response Status Code: {response.status_code}")
-            #self.process_response(response.json(), self.message)
+            response = requests.post(self.url, data=self.payload, headers=self.headers, timeout=30)
+            logging.info("Response Status Code: %s", response.status_code)
+            self.process_response(response)
         except requests.exceptions.HTTPError as http_err:
             #self.bot_response.send_error_response({"error": f"HTTP error occurred: {http_err}"}, self.message)
-            logging.error(f"HTTP error occurred: {http_err}")
+            logging.error("HTTP error occurred: %s", http_err)
         except Exception as err:
-            self.bot_response.send_error_response({"error": f"An error occurred: {err}"}, self.message)
-            logging.error(f"An error occurred: {err}")
+            # self.bot_response.send_error_response({"error": f"An error occurred: {err}"}, self.message)
+            logging.error("An error occurred: %s", err)
 
     def process_response(self, response):
         """
@@ -75,8 +77,8 @@ class EtihadScraper:
             list: A list of formatted flight data.
         """
         try:
-            airBoundGroups = response['data']['airBoundGroups']
             formatted_groups = []
+            airBoundGroups = response['data']['airBoundGroups']
 
             for bound in airBoundGroups:
                 response_dict = {
@@ -88,12 +90,10 @@ class EtihadScraper:
                     }
                 }
                 formatted_groups.append(response_dict)
-
-            response_json = json.dumps(formatted_groups)
-            #self.bot_response.response_processor(response_json, self.message)
+            self.bot_response.send_response(json.dumps(formatted_groups), self.message)
         except KeyError as key_err:
-            logging.error(f"Key error occurred: {key_err}")
-            #self.bot_response.send_error_response({"error": f"Key error occurred: {key_err}"}, self.message)
+            logging.error("Key error occurred: %s", key_err)
+            self.bot_response.send_response({"error": f"Key error occurred: {key_err}", "status_code":response.status_code}, self.message)
         except Exception as err:
             #self.bot_response.send_error_response({"error": f"An error occurred: {err}"}, self.message)
             logging.error(f"An error occurred: {err}")

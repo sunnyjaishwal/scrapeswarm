@@ -32,8 +32,7 @@ class ResponseConsumer:
             if isinstance(message, str):
                 data = json.loads(message)
                 parameters = data['request']['body']['parameters']
-                print(parameters)
-                key = f"{parameters['sourceIata']}:{parameters['destinationIata']}:{parameters['departureDate']}:{data['request']['body']['siteId']}"
+                key = f"{parameters['sourceIata']}:{parameters['destinationIata']}:{parameters['departureDate']}:{data['request']['siteId']}"
                 self.cache_processor.set_response_to_cache(key=key, value=data)
                 print("Data set to cache")
                 # Add this in Cache with unique Key
@@ -49,7 +48,7 @@ class ResponseConsumer:
         self.channel.basic_consume(
             queue=self.get_queues(),
             on_message_callback=self.callback,
-            auto_ack=False  # Set auto_ack to False to manually acknowledge after processing
+            auto_ack=True  # Set auto_ack to False to manually acknowledge after processing
         )
         logger.info("[X] Started consuming")
         self.channel.start_consuming()

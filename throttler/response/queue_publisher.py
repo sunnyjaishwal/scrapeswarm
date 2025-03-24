@@ -8,7 +8,7 @@ class ResponsePublisher:
     def __init__(self, ):
         self.exchange:str = 'AirlineDev'
         self.queue:str = 'AirlineResponse'
-        self.header:dict = {'x-match': 'all', 'type': 'response'}
+        self.header:dict = {'x-match': 'all', 'request-type': 'response'}
         self.exchange_type:str = 'headers'
         self.connection = RabbitMQConnector()
         self.channel = self.connection.get_channel()
@@ -27,7 +27,6 @@ class ResponsePublisher:
         self.channel.queue_declare(
             queue=self.queue,
             durable=True,
-            auto_delete=True
         )
         self._bind_queue()
 

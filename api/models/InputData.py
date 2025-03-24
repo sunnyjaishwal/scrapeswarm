@@ -32,8 +32,8 @@ class InputData(BaseModel):
     requestId: str
     reportId: str
     customerId: int
-    siteId: int
-    siteName: str
+    # siteId: int
+    # siteName: str
     retryCount: int
     parameters: Parameters
 
@@ -42,8 +42,8 @@ class InputData(BaseModel):
             "requestId": self.requestId,
             "reportId": self.reportId,
             "customerId": self.customerId,
-            "siteId": self.siteId,
-            "siteName": self.siteName,
+            # "siteId": self.siteId,
+            # "siteName": self.siteName,
             "retryCount": self.retryCount,
             "parameters": self.parameters.dict()
         }

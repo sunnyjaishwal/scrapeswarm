@@ -1,7 +1,11 @@
 """Delta Scraper"""
 import requests
+import logging
 from response.bot_response import BotResponse
 
+
+
+logging.basicConfig(level=logging.INFO)
 class DeltaScraper:
     ''' Delta scraper'''
     def __init__(self, message):
@@ -34,6 +38,8 @@ class DeltaScraper:
 
     def send_request(self):
         ''' Sending request to Delta Airline for flight data'''
+        print(self.message)
         payload = "{\"query\":\"query ($offerSearchCriteria: OfferSearchCriteriaInput!) {\\n  gqlSearchOffers(offerSearchCriteria: $offerSearchCriteria) {\\n    offerResponseId\\n    gqlOffersSets {\\n      offers {\\n        offerId\\n        additionalOfferProperties {\\n          offered\\n          soldOut\\n          lowestFare\\n          totalTripStopCnt\\n          discountAvailable\\n        }\\n        offerPricing {\\n          discountsApplied {\\n            code\\n            pct\\n          }\\n          originalTotalAmt {\\n            currencyEquivalentPrice {\\n              currencyAmt\\n              roundedCurrencyAmt\\n              formattedCurrencyAmt\\n            }\\n            milesEquivalentPrice {\\n              mileCnt\\n            }\\n          }\\n          totalAmt {\\n            currencyEquivalentPrice {\\n              currencyAmt\\n              roundedCurrencyAmt\\n              formattedCurrencyAmt\\n            }\\n            milesEquivalentPrice {\\n              mileCnt\\n            }\\n          }\\n          promotionalPrices {\\n            code\\n            pct\\n            price {\\n              milesEquivalentPrice {\\n                mileCnt\\n              }\\n              currencyEquivalentPrice {\\n                currencyAmt\\n                roundedCurrencyAmt\\n                formattedCurrencyAmt\\n              }\\n            }\\n          }\\n        }\\n      }\\n      itineraryDepartureDate\\n    }\\n    offerDataList {\\n      pricingOptions {\\n        pricingOptionDetail {\\n          currencyCode\\n        }\\n      }\\n      flexReturnDates\\n      responseProperties {\\n        tripTypeText\\n        discountInfo {\\n          discountPct\\n          discountTypeCode\\n          nonDiscountedOffersAvailable\\n        }\\n        promotionsInfo {\\n          promotionalCode\\n          promotionalPct\\n        }\\n      }\\n    }\\n  }\\n}\",\"variables\":{\"offerSearchCriteria\":{\"productGroups\":[{\"productCategoryCode\":\"FLIGHTS\"}],\"customers\":[{\"passengerTypeCode\":\"ADT\",\"passengerId\":\"1\"}],\"offersCriteria\":{\"resultsPageNum\":4,\"pricingCriteria\":{\"priceableIn\":[\"MILES\"]},\"preferences\":{\"nonStopOnly\":false,\"refundableOnly\":false},\"flightRequestCriteria\":{\"sortByBrandId\":\"BE\",\"searchOriginDestination\":[{\"departureLocalTs\":\"2025-03-23T00:00:00\",\"destinations\":[{\"airportCode\":\"WAS\"}],\"origins\":[{\"airportCode\":\"PAR\"}],\"calenderDateRequest\":{\"daysBeforeCnt\":3,\"daysAfterCnt\":3}}]}}}}}"
         response = requests.post(url=self.api_url, data=payload, headers=self.header, timeout=300)
+        logging.info(f"Response Status Code: {response.status_code}")
         self.bot_response.send_response(response, self.message)

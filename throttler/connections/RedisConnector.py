@@ -24,9 +24,9 @@ class RedisConnector:
 
 # Below code is only required for testing the RedisConnector class
 # Not required for microservices
-if __name__ == "__main__":
-    redis_connector = RedisConnector()
-    redis_connector.connect()
-    connection = redis_connector.get_connection()
-    print(connection)
-    redis_connector.close()
+# if __name__ == "__main__":
+#     redis_connector = RedisConnector()
+#     redis_connector.connect()
+#     connection = redis_connector.get_connection()
+#     print(connection)
+#     redis_connector.close()

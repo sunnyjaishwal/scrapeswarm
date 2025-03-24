@@ -41,6 +41,7 @@ class RabbitMQHandler:
 
     def publish(self, message, headers):
         '''Publish message to the queue'''
+        print('''Publish message to the queue''')
         message_body = json.dumps(message).encode('utf-8')
         properties = BasicProperties(
             content_type='application/json',
