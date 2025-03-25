@@ -2,6 +2,26 @@
 
 ## Overview
 
+how to run the project
+
+STEP 1
+Start API
+1. Go to API directory
+2. Activate virtualenv
+3. run fastapi dev main.py
+
+STEP 2
+Start BotRequest consumer
+1. Go to Throttler directory
+2. Activate the virtualenv
+3. run python bot_request_consumer.py
+
+STEP 3
+Start BotResponse consumer
+1. Go to API directory
+2. Activate virtualenv
+3. run python bot_response_consumer.py
+
 Provide a brief description of the project and its purpose.
 
 ## Table of Contents
